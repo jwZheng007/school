@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加学生</title>
+    <script src="js/jquery-3.6.0.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            viewStudents();
+        });
+        function viewStudents(){
+            let html = "";
+            $.post({
+                url: "/viewStudents",
+                contentType: "application/json",
+                success: function (data){
+                    for(let i = 0; i < data.length; i++){
+                        html+="<tr>" +
+                            "<td>" + data[i].stu_id + "</td>" +
+                            "<td>" + data[i].stu_name + "</td>" +
+                            "<td>" + data[i].os_id + "</td>" +
+                            "</tr>"
+                    }
+                    $("#students").html(html);
+                }
+            })
+        }
+        function add(){
+            $.post({
+                url: "/addStudent2",
+                contentType: "application/json",
+                data: JSON.stringify({stu_id :$("#stu_id").val()}),
+                success: function (data){
+                    if(data == "1"){
+                        alert("添加成功")}
+                    else{
+                        alert("添加失败")
+                    }
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+<table >
+    <tr>
+        <td>id</td>
+        <td>姓名</td>
+        <td>选题id</td>
+    </tr>
+    <tbody id="students"></tbody>
+</table>
+stu_id:<input type="text" id="stu_id">
+<input type="button" onclick="add()" value="添加">
+</body>
+</html>

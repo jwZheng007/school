@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学生加入老师所属</title>
+    <script src="js/jquery-3.6.0.js"></script>
+    <script>
+        function add(){
+            $.post({
+                url: "/addStudentToTeacher2",
+                contentType: "application/json",
+                data: JSON.stringify({tea_id :$("#tea_id").val(), stu_id :$("#stu_id").val()}),
+                success: function (data){
+                    if(data == "1"){
+                        alert("添加成功")}
+                    else{
+                        alert("添加失败")
+                    }
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+tea_id:<input type="text" id="tea_id">
+stu_id:<input type="text" id="stu_id">
+<input type="button" onclick="add()" value="添加">
+</body>
+</html>

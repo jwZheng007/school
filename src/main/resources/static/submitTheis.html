@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>提交开题报告</title>
+    <script src="js/jquery-3.6.0.js"></script>
+    </script>
+    <script>
+        function submit(){
+            $.post({
+                url: "/submitTheis2",
+                contentType: "application/json",
+                data:JSON.stringify({theis:$("#theis").val()}),
+                success:function (data){
+                    if(data == "1"){
+                        alert("提交成功")
+                    }else {
+                        alert("提交失败")
+                    }
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+毕业论文：<input type="text" id="theis">
+<input type="button" value="提交" onclick="submit()">
+</form>
+</body>
+</html>

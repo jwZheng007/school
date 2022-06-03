@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>添加学生</title>
+    <script src="js/jquery-3.6.0.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            viewMyStudents();
+        });
+        function viewMyStudents(){
+            let html = "";
+            $.post({
+                url: "/viewMyStudents",
+                contentType: "application/json",
+                success: function (data) {
+                    for (let i = 0; i < data.length; i++) {
+                        html += '<tr>';
+                        html += '<td> #{stu_id} </td>';
+                        html += '<td> #{stu_name} </td>';
+                        html += '<td> #{os_id} </td>';
+                        html += '<td> #{tea_id} </td>';
+                        html += '<td> #{theis_grade} </td>';
+                        html += '</tr>';
+                        html = html.replace(/#{stu_id}/g, data[i].stu_id);
+                        html = html.replace(/#{stu_name}/g, data[i].stu_name);
+                        html = html.replace(/#{os_id}/g, data[i].os_id);
+                        html = html.replace(/#{tea_id}/g, data[i].tea_id);
+                        html = html.replace(/#{theis_grade}/g, data[i].theis_grade);
+                    }
+                    $("#students").html(html);
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+你的学生信息:
+<table >
+    <tr>
+        <td>id</td>
+        <td>姓名</td>
+        <td>选题id</td>
+        <td>老师id</td>
+        <td>毕业论文得分</td>
+    </tr>
+    <tbody id="students"></tbody>
+</table>
+</body>
+</html>

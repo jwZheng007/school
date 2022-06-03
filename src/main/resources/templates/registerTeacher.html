@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>教师注册界面</title>
+    <script src="js/jquery-3.6.0.js"></script>
+    <script>
+        function register(){
+            var teacher = {
+                "tea_id":$("#id").val(),
+                "tea_name": $("#name").val(),
+                "students": null
+            }
+            var user = {
+                "id": $("#id").val(),
+                "type": "teacher",
+                "password":$("#password").val()
+            }
+
+            $.post({
+                url: "/registerTeacher2",
+                contentType: "application/json",
+                data: JSON.stringify({user:user, teacher: teacher}),
+                success: function (data){
+                    if(data == "1"){
+                        alert("注册成功")}
+                    else{
+                        alert("注册失败")
+                    }
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+id:<input type="text" id="id">
+password:<input type="text" id="password">
+tea_name:<input type="text" id="name">
+<input type="button" onclick="register()" value="注册">
+</body>
+</html>

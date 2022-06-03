@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查看选题</title>
+    <script src="js/jquery-3.6.0.js"></script>
+    <script>
+        function check(){
+            let html = "";
+            $.post({
+                url: "/checkOs2",
+                contentType: "application/json",
+                success: function (data){
+                    html += '<tr>';
+                    html += '<td> #{Os_name} </td>';
+                    html += '</tr>';
+                    html = html.replace(/#{Os_name}/g, data);
+                    $("#os_name").html(html);
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+<input type="button" value="查看" onclick="check()"><br>
+你的选题:
+<table >
+    <tbody id="os_name"></tbody>
+</table>
+</body>
+</html>
+

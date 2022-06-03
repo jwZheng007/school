@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>教师界面</title>
+    <script src="js/jquery-3.6.0.js"></script>
+    <script>
+        function submit(){
+            $.post({
+                url: $("input[name='submit']:checked").val(),
+                contentType: "application/json",
+                success: function (data){
+                    window.location.href = data
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+<input type="radio" name="submit" value="setOs" checked="checked">出题
+<input type="radio" name="submit" value="addStudent">选择学生
+<input type="radio" name="submit" value="checkStudent">查询学生信息
+<input type="radio" name="submit" value="check2Os">审核开题报告
+<input type="radio" name="submit" value="checkTheis">审核毕业论文
+<input type="button" value="提交" onclick="submit()">
+</body>
+</html>

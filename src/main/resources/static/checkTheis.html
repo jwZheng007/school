@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>审核毕业论文</title>
+    <script src="js/jquery-3.6.0.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            viewMyStudents();
+        });
+        function viewMyStudents(){
+            let html = "";
+            $.post({
+                url: "/viewMyStudents",
+                contentType: "application/json",
+                success: function (data) {
+                    for (let i = 0; i < data.length; i++) {
+                        html += '<tr>';
+                        html += '<td> #{stu_id} </td>';
+                        html += '<td> #{stu_name} </td>';
+                        html += '<td> #{os_id} </td>';
+                        html += '</tr>';
+                        html = html.replace(/#{stu_id}/g, data[i].stu_id);
+                        html = html.replace(/#{stu_name}/g, data[i].stu_name);
+                        html = html.replace(/#{os_id}/g, data[i].os_id);
+                    }
+                    $("#students").html(html);
+                }
+            })
+        }
+        function viewTheis(){
+            var html1="";
+            $.post({
+                url: "/viewTheis",
+                contentType: "application/json",
+                data: JSON.stringify({stu_id :$("#stu_id").val()}),
+                success: function (data){
+                    html1 += '<tr>';
+                    html1 += '<td> #{theis} </td>';
+                    html1 += '</tr>';
+                    html1 = html1.replace(/#{theis}/g, data);
+                    $("#theis").html(html1);
+                }
+            })
+        }
+        function grade(){
+            $.post({
+                url: "/grade",
+                contentType: "application/json",
+                data: JSON.stringify({stu_id :$("#stu_id").val(), grade :$("#grade").val()}),
+                success:function (data){
+                    if(data == "1")
+                        alert("赋分成功")
+                    else
+                        alert("赋分失败")
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+输入要查找的学生id:<input type="text" id="stu_id">
+<input type="button" onclick="viewTheis()" value="查看"><br>
+该学生毕业论文分数:<input type="text" id="grade">
+<input type="button" onclick="grade()" value="提交"><br>
+你的学生:
+<table >
+    <tr>
+        <td>id</td>
+        <td>姓名</td>
+        <td>选题id</td>
+    </tr>
+    <tbody id="students"></tbody>
+</table>
+该学生的开题报告:
+<table>
+    <tbody id="theis"></tbody>
+</table>
+</body>
+</html>

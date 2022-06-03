@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>出题</title>
+    <script src="js/jquery-3.6.0.js"></script>
+    <script>
+        function set(){
+            $.post({
+                url: "/setOs2",
+                contentType: "application/json",
+                data: JSON.stringify({os:$("#os").val()}),
+                success: function (data){
+                    if(data == "1"){
+                        alert("出题成功")}
+                    else{
+                        alert("出题失败")
+                    }
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+题目:<input type="text" id="os" >
+<input type="button" value="提交" onclick="set()">
+</body>
+</html>

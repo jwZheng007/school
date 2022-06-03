@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>学生注册界面</title>
+    <script src="js/jquery-3.6.0.js"></script>
+    <script>
+        function register(){
+            var student = {
+                "stu_id":$("#id").val(),
+                "stu_name": $("#name").val(),
+                "os": null
+            }
+            var user = {
+                "id": $("#id").val(),
+                "type": "student",
+                "password":$("#password").val()
+            }
+            $.post({
+                url: "/registerStudent2",
+                contentType: "application/json",
+                data: JSON.stringify({user:user, student: student}),
+                success: function (data){
+                    if(data == "1" ){
+                        alert("注册成功")}
+                    else{
+                        alert("注册失败")
+                    }
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+id:<input type="text" id="id">
+password:<input type="text" id="password">
+stu_name:<input type="text" id="name">
+<input type="button" onclick="register()" value="注册">
+</body>
+</html>

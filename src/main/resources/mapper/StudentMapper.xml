@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.StudentMapper">
+
+    <!--    查看选题结果-->
+    <select id="checkOs" resultType="String">
+        select o.os_name
+        from os o,student s
+        where s.stu_id=#{stu_id} and s.os_id=o.os_id
+    </select>
+
+
+<!--    选择开题报告-->
+    <update id="chooseOs">
+        update student
+        set os_id=#{os_id}
+        where stu_id=#{stu_id}
+    </update>
+
+<!--    提交开题报告-->
+    <update id="submitOs">
+        update student
+        set stu_os=#{stu_os}
+        where stu_id=#{stu_id}
+    </update>
+
+    <!--    提交毕业论文-->
+    <update id="submitTheis">
+        update student
+        set theis=#{theis}
+        where stu_id=#{stu_id}
+    </update>
+<!--获取所有Os-->
+    <select id="viewOs_id" resultType="com.example.demo.pojo.Os">
+        select o.*
+        from os o
+    </select>
+</mapper>

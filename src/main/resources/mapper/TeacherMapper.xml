@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.TeacherMapper">
+
+    <!-- 出题 -->
+    <insert id="setOs" >
+        insert into os(os_id,os_name)values(#{id}, #{os})
+    </insert>
+<!--    查询题目数-->
+    <select id="checkOs" resultType="Integer">
+        select count(*)
+        from os
+    </select>
+<!--    查看所有学生-->
+    <select id="viewStudents" resultType="com.example.demo.pojo.Student">
+    select s.*
+    from student s
+    </select>
+<!--添加学生-->
+    <update id="addStudent">
+        update student
+        set tea_id=#{tea_id}
+        where stu_id=#{stu_id}
+    </update>
+<!--查看我的学生-->
+    <select id="viewMyStudents" resultType="com.example.demo.pojo.Student">
+        select s.*
+        from student s
+        where s.tea_id=#{tea_id}
+    </select>
+
+<!--    根据id查看os-->
+    <select id="viewOs" resultType="String">
+        select s.stu_os
+        from student s
+        where s.stu_id=#{stu_id}
+    </select>
+    <!--    根据id查看theis-->
+    <select id="viewTheis" resultType="String">
+        select s.theis
+        from student s
+        where s.stu_id=#{stu_id}
+    </select>
+    <update id="grade">
+        update student
+        set theis_grade=#{theis_grade}
+        where stu_id=#{stu_id}
+    </update>
+</mapper>

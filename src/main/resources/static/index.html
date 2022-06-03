@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/jquery-3.6.0.js"></script>
+    <script>
+        function login(){
+            $.post({
+                url: "/login",
+                contentType: "application/json",
+                data: JSON.stringify({ id: $("#id").val(), password: $("#password").val()}),
+                success: function (data){
+                    window.location.href = data
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+<table>
+        id:<input type="text" id="id">
+        password:<input type="text" id="password">
+    <input type="button" value="login" onclick="login()">
+</table>
+</body>
+</html>

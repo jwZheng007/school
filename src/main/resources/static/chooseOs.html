@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>选择题目</title>
+    <script src="js/jquery-3.6.0.js"></script>
+    <script>
+        $(document).ready(function () {
+            viewOs_id();
+        });
+        function viewOs_id(){
+            let html = "";
+            $.post({
+                url: "/viewOs_id",
+                contentType: "application/json",
+                success: function (data) {
+                    for (let i = 0; i < data.length; i++) {
+                        html += '<tr>';
+                        html += '<td> #{os_id} </td>';
+                        html += '<td> #{os_name} </td>';
+                        html += '</tr>';
+                        html = html.replace(/#{os_id}/g, data[i].os_id);
+                        html = html.replace(/#{os_name}/g, data[i].os_name);
+                    }
+                    $("#os").html(html);
+                }
+            })
+        }
+        function choose(){
+            $.post({
+                url: "/chooseOs2",
+                contentType: "application/json",
+                data: JSON.stringify({ os_id :$("#os_id").val()}),
+                success: function (data){
+                    if(data == "1"){
+                        alert("选择成功")}
+                    else{
+                        alert("选择失败")
+                    }
+                }
+            })
+        }
+    </script>
+</head>
+<body>
+可选题目：
+<table >
+    <tr>
+        <td>os_id</td>
+        <td>os_name</td>
+    </tr>
+    <tbody id="os"></tbody>
+</table>
+选题(填os_id):<input type="text" id="os_id">
+<input type="button" value="提交" onclick="choose()">
+</body>
+</html>
